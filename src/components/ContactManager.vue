@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <div class="container mt-3">
@@ -30,16 +31,16 @@
       </div>
     </div>
 
-<!--    &lt;!&ndash; Sipinner &ndash;&gt;-->
-<!--    <div v-if="loading">-->
-<!--      <div class="container">-->
-<!--        <div class="row">-->
-<!--          <div class="col">-->
-<!--            <Spinner/>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
+    <!--    &lt;!&ndash; Sipinner &ndash;&gt;-->
+    <!--    <div v-if="loading">-->
+    <!--      <div class="container">-->
+    <!--        <div class="row">-->
+    <!--          <div class="col">-->
+    <!--            <Spinner/>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </div>-->
+    <!--    </div>-->
 
     <!-- Error Message -->
     <div v-if="!loading && errorMessage">
@@ -141,9 +142,9 @@ const filteredContacts = computed(() => {
   if (!searchName.value) {
     return contacts.value;
   }
-    return contacts.value.filter(contact =>
-        contact.name.toLowerCase().includes(searchName.value.toLowerCase())
-    );
+  return contacts.value.filter(contact =>
+      contact.name.toLowerCase().includes(searchName.value.toLowerCase())
+  );
 
 });
 

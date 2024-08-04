@@ -16,9 +16,9 @@
             <div class="md-2">
               <input required type="text" class="form-control" placeholder="Name" v-model="contact.name">
             </div>
-            <div class="md-2">
-              <input required type="text" class="form-control" placeholder="Photo URL" v-model="contact.photo">
-            </div>
+<!--            <div class="md-2">-->
+<!--              <input required type="text" class="form-control" placeholder="Photo URL" v-model="contact.photo">-->
+<!--            </div>-->
 
             <div class="md-2">
               <input required type="email" class="form-control" placeholder="Email" v-model="contact.email">
@@ -82,6 +82,9 @@ const contact = reactive<Contact>({
   groupId: ''
 });
 
+
+let  photoId = ref<number>(1)
+
 const groups = ref<any>([]);
 
 onMounted(async () => {
@@ -98,6 +101,7 @@ onMounted(async () => {
 
 const submitCreate = async () => {
   try {
+    contact.photo = 'https://i.pravatar.cc/150?img=' + photoId.value++ ;
     let response = await ContactService.createContact(contact)
 
     if (response) {
