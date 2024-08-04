@@ -36,7 +36,7 @@
             </div>
             <div class="md-2">
               <select required class="form-control" v-if="groups.length > 0" v-model="contact.groupId">
-                <option value="">Seclect Group</option>
+                <option value="">Select Group</option>
                 <option :value="group.id" v-for="group of groups" :key="group.id">{{ group.name }}</option>
               </select>
             </div>
@@ -83,7 +83,7 @@ const contact = reactive<Contact>({
 });
 
 
-let  photoId = ref<number>(1)
+let  photoId = ref<number>(0)
 
 const groups = ref<any>([]);
 
@@ -101,7 +101,9 @@ onMounted(async () => {
 
 const submitCreate = async () => {
   try {
-    contact.photo = 'https://i.pravatar.cc/150?img=' + photoId.value++ ;
+
+// Construct the URL
+    contact.photo = 'https://i.pravatar.cc/150?img=' + getRandomInt(1, 50);
     let response = await ContactService.createContact(contact)
 
     if (response) {
@@ -115,6 +117,13 @@ const submitCreate = async () => {
   }
 }
 
+
+function getRandomInt(min: number, max: number): number {
+  // Ensure min and max are integers and min is less than max
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 </script>
 

@@ -79,7 +79,8 @@
                     <i class="fa fa-pen"></i>
                   </router-link>
                   <button class="btn btn-danger my-1" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal"><i
+                          data-bs-target="#exampleModal"
+                          @click="setIdToDelete(contact.id)"><i
                       class="fa fa-trash"></i></button>
                 </div>
 
@@ -98,7 +99,9 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" @click="clickDeleteContact(contact.id)">Confirm</button>
+                        <button type="button" class="btn btn-danger" @click="clickDeleteContact(idTodelete)"
+                                data-bs-dismiss="modal">Confirm</button>
+
                       </div>
                     </div>
                   </div>
@@ -137,6 +140,9 @@ const loading = ref<boolean>(false);
 const errorMessage = ref<string | null>(null);
 const searchName = ref<string>("");
 
+const idTodelete = ref("");
+
+const setIdToDelete = (id:string) => idTodelete.value = id;
 
 const filteredContacts = computed(() => {
   if (!searchName.value) {
@@ -167,11 +173,13 @@ const getAllContactsData = async () => {
   return await ContactService.getAllContacts()
 }
 const clickDeleteContact = async (contactId: string) => {
+
+  console.log(contactId)
   try {
     loading.value = true
     let response = await ContactService.deleteContact(contactId)
     if (response) {
-      location.reload()
+      //location.reload()
       let response = await ContactService.getAllContacts() //getting fresh data
       contacts.value = response.data
       loading.value = false
